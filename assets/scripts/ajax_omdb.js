@@ -2,6 +2,7 @@ $(document).ready(function(){
 	console.log("ready");
 	$('#submit_button').click(function(event){
 		event.preventDefault();
+			$('#results').empty();
 			omdbQuery(); 
 	});
 	$(document).scroll(function(e){
@@ -25,9 +26,12 @@ var omdbQuery = function(){
 		},
 		type: "GET",
 		dataType: "json",
-
+    beforeSend: function(){
+        $(".loading").fadeIn();
+    },
 	}).done(function( json ) {
-     appendResults(json);
+	    $(".loading").fadeOut();
+    	appendResults(json);
 	}).fail(function( xhr, status, errorThrown ) {
 	   alert( "Sorry, there was a problem!" );
 	   console.log( "Error: " + errorThrown );
@@ -37,11 +41,20 @@ var omdbQuery = function(){
 };
 
 var appendResults = function(json){
-	for(var i = 0; i < json.Search.length; i++){
-		$(`<div class="result" id="r_${i}"></div`).appendTo("#results");
-		$(`<h3>${json.Search[i].Title}</h3>`).appendTo(`#r_${i}`);
-		$(`<h4>${json.Search[i].Year}</h4>`).appendTo(`#r_${i}`);
-		$(`<img src="${json.Search[i].Poster}">`).appendTo(`#r_${i}`);
+	console.log(json.Response);
+	if(json.Response == "False"){
+		$(`<h2>No results were found :(</h2>`).appendTo(`#results`);
+	} else if (json.Response == "True"){
+		for(var i = 0; i < json.Search.length; i++){
+			$(`<div class="result" id="r_${i}"></div`).appendTo("#results");
+			$(`<h3>${json.Search[i].Title}</h3>`).appendTo(`#r_${i}`);
+			$(`<h4>${json.Search[i].Year}</h4>`).appendTo(`#r_${i}`);
+			if(json.Search[i].Poster == "N/A"){
+				$(`<img src="assets/images/na.jpeg">`).appendTo(`#r_${i}`);
+			} else {
+				$(`<img src="${json.Search[i].Poster}">`).appendTo(`#r_${i}`);
+			}
+		}
 	}
 }
 
