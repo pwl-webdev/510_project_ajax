@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" href="assets/stylesheets/style.css">
+	<meta charset="utf-8"></meta>
+	<link rel="stylesheet" href="assets/stylesheets/style.css"></link>
 	<title>OMDB Query with AJAX</title>
 </head>
 <body>
 	<form id="omdb_query" action="/?" method="get">
-		<input id="title" type="text" name="title">
-		<input id="submit_button" type="submit" name="submit" value="search">	
+		<input id="title" type="text" name="title"></input>
+		<input id="submit_button" type="submit" name="submit" value="search"></input>	
 	</form> 
-
+	<div id="results">
+	</div>
 	<script src="assets/scripts/jquery-3.1.0.js"></script>
 	<script src="assets/scripts/ajax_omdb.js"></script>
 </body>
