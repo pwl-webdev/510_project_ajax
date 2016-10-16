@@ -46,14 +46,20 @@ var appendResults = function(json){
 		$(`<h2>No results were found :(</h2>`).appendTo(`#results`);
 	} else if (json.Response == "True"){
 		for(var i = 0; i < json.Search.length; i++){
-			$(`<div class="result" id="r_${i}"></div`).appendTo("#results");
-			$(`<h3>${json.Search[i].Title}</h3>`).appendTo(`#r_${i}`);
-			$(`<h4>${json.Search[i].Year}</h4>`).appendTo(`#r_${i}`);
+			$(`<div class="result" id="r_${page*10+i}"></div`).appendTo("#results");
 			if(json.Search[i].Poster == "N/A"){
-				$(`<img src="assets/images/na.jpeg">`).appendTo(`#r_${i}`);
+				$(`<img src="assets/images/na.jpeg">`).appendTo(`#r_${page*10+i}`);
 			} else {
-				$(`<img src="${json.Search[i].Poster}">`).appendTo(`#r_${i}`);
+				$(`<img src="${json.Search[i].Poster}">`).appendTo(`#r_${page*10+i}`);
 			}
+			/*$(`<div class="desc">`).appendTo(`#r_${i}`);
+				$(`<h3>${json.Search[i].Title}</h3>`).appendTo(`#r_${i}`);
+				$(`<h4>${json.Search[i].Year}</h4>`).appendTo(`#r_${i}`);
+			$(`</div>`).appendTo(`#r_${i}`);*/
+			$(`<div class="desc">
+				<h3>${json.Search[i].Title}</h3>
+				<h4>${json.Search[i].Year}</h4>
+			</div>`).appendTo(`#r_${page*10+i}`);
 		}
 	}
 }
