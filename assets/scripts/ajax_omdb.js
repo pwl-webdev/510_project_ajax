@@ -19,7 +19,7 @@ var page = 1;
 var omdbQuery = function(){
 	//console.log($('#title').val());
 	$.ajax({
-		url: "http://www.omdbapi.com/?",
+		url: "https://www.omdbapi.com/?",
 		data: {
 			s: $('#title').val(),
 			page: page
